@@ -1,0 +1,118 @@
+# depslib dependency file v1.0
+1510789362 source:c:\users\luisaugusto\documents\tec\ed\proyecto#2\main.cpp
+	<iostream>
+	<winbgim.h>
+	<stdexcept>
+	<ctime>
+	<math.h>
+	"ListaAdyacente.h"
+
+1510783211 c:\users\luisaugusto\documents\tec\ed\proyecto#2\include\listaadyacente.h
+	"LinkedList.h"
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<stdexcept>
+	<winbgim.h>
+	<math.h>
+
+1510429064 c:\users\luisaugusto\documents\tec\ed\proyecto#2\include\linkedlist.h
+	"List.h"
+	"Node.h"
+	<stdexcept>
+
+1510598255 c:\users\luisaugusto\documents\tec\ed\proyecto#2\include\list.h
+
+1503533697 c:\users\luisaugusto\documents\tec\ed\proyecto#2\include\node.h
+
+1504915149 c:\users\luisaugusto\documents\tec\ed\proyecto#2\include\arraystack.h
+	<iostream>
+	<sstream>
+	"Stack.h"
+	<stdexcept>
+
+1504828158 c:\users\luisaugusto\documents\tec\ed\proyecto#2\include\stack.h
+
+1503532427 c:\users\luisaugusto\documents\tec\ed\proyecto#2\include\arraylist.h
+	"List.h"
+	<stdexcept>
+
+1510791436 source:c:\users\luisaugusto\documents\tec\ed\proyecto2-entregable\proyecto#2\main.cpp
+	<iostream>
+	<winbgim.h>
+	<stdexcept>
+	<ctime>
+	<math.h>
+	"ListaAdyacente.h"
+
+1510792444 c:\users\luisaugusto\documents\tec\ed\proyecto2-entregable\proyecto#2\include\listaadyacente.h
+	"LinkedList.h"
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<stdexcept>
+	<winbgim.h>
+	<math.h>
+
+1510429064 c:\users\luisaugusto\documents\tec\ed\proyecto2-entregable\proyecto#2\include\linkedlist.h
+	"List.h"
+	"Node.h"
+	<stdexcept>
+
+1510598255 c:\users\luisaugusto\documents\tec\ed\proyecto2-entregable\proyecto#2\include\list.h
+
+1503533697 c:\users\luisaugusto\documents\tec\ed\proyecto2-entregable\proyecto#2\include\node.h
+
+1608672135 source:c:\users\26399\desktop\proyecto2-entregable\proyecto#2\main.cpp
+	<iostream>
+	<winbgim.h>
+	<stdexcept>
+	<ctime>
+	<math.h>
+	"ListaAdyacente.h"
+
+1608671965 c:\users\26399\desktop\proyecto2-entregable\proyecto#2\include\listaadyacente.h
+	"LinkedList.h"
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<stdexcept>
+	<winbgim.h>
+	<math.h>
+
+1608671965 c:\users\26399\desktop\proyecto2-entregable\proyecto#2\include\linkedlist.h
+	"List.h"
+	"Node.h"
+	<stdexcept>
+
+1510598255 c:\users\26399\desktop\proyecto2-entregable\proyecto#2\include\list.h
+
+1503533697 c:\users\26399\desktop\proyecto2-entregable\proyecto#2\include\node.h
+
+1611093668 source:c:\users\26399\desktop\proyectoed\proyecto#2\main.cpp
+	<iostream>
+	<winbgim.h>
+	<stdexcept>
+	<ctime>
+	<math.h>
+	"ListaAdyacente.h"
+
+1611093414 c:\users\26399\desktop\proyectoed\proyecto#2\include\listaadyacente.h
+	"LinkedList.h"
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<stdexcept>
+	<winbgim.h>
+	<math.h>
+
+1602302822 c:\users\26399\desktop\proyectoed\proyecto#2\include\linkedlist.h
+	"list.h"
+	"node.h"
+	<stdexcept>
+	<iostream>
+
+1602302025 c:\users\26399\desktop\proyectoed\proyecto#2\include\list.h
+
+1601072663 c:\users\26399\desktop\proyectoed\proyecto#2\include\node.h
+
