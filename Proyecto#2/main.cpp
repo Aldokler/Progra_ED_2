@@ -37,10 +37,13 @@ int main(){
         while(!L.atEnd()){
             string tiempo= "";
             tiempo=to_string(timer-int(time(0)-stime));
+            char * timeString = new char [tiempo.length()+1];
+            strcpy(timeString, tiempo.c_str());
             setcolor(15);
             outtextxy(i*30, 0, "Tiempo restante: ");
             outtextxy(i*30+230, 0, "                                               ");// usamos espacios para limpiar el string del tiempo
-            outtextxy(i*30+230, 0,tiempo.c_str());
+            outtextxy(i*30+230, 0,timeString);
+            //outtextxy(i*30+230, 0,tiempo.c_str());
             int pos = getch();
             if(time(0)-stime>=timer){
                 closegraph();
@@ -55,21 +58,21 @@ int main(){
                 return 0;
             }
 
-            else if(pos==72){//flechas para moverse
+            else if(pos==72){//flechas para moverse (arriba)
                 L.labDisplay();
                 L.setPlayerPos(1);
             }
 
-            else if(pos==75){//flechas para moverse
+            else if(pos==75){//flechas para moverse (izquierda)
                 L.labDisplay();
                 L.setPlayerPos(2);
             }
 
-            else if(pos==77){//flechas para moverse
+            else if(pos==77){//flechas para moverse (derecha)
                 L.labDisplay();
                 L.setPlayerPos(3);
             }
-            else if(pos==80){//flechas para moverse
+            else if(pos==80){//flechas para moverse (abajo)
                 L.labDisplay();
                 L.setPlayerPos(4);
             }
