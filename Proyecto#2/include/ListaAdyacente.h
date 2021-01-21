@@ -19,7 +19,10 @@ class ListaAdyacente{
         int jugador;
         int lado;
         int fin;
-        int tam = 29;
+        int tam = 30;
+        int espacio;
+        int midx;
+        int midy;
         bool *visitados;
         int *camino;
         int *distancias;
@@ -34,6 +37,9 @@ class ListaAdyacente{
             camino = new int[size];
             distancias = new int[size];
             visitados = new bool[size];
+            espacio = (lado+lado-1)*(tam/2);
+            midx = (1360 - espacio)/2;
+            midy = (760 - espacio)/2;
         }
         ~ListaAdyacente(){
             for(int i=0;i<size;i++){
@@ -58,6 +64,9 @@ class ListaAdyacente{
             this->size=size;
             lado = sqrt(size);
             nodos = new LinkedList<int> [size];
+            espacio = (lado+lado-1)*(tam/2);
+            midx = (1360 - espacio)/2;
+            midy = (760 - espacio)/2;
 
             camino = new int[size];
             distancias = new int[size];
@@ -74,20 +83,20 @@ class ListaAdyacente{
 
             for(int i=0;i<size;i++){
 
-                bar(tam*(i%lado),(i/lado)*tam,tam/2+tam*(i%lado),(i/lado)*tam+tam/2);
+                bar(tam*(i%lado) + midx,(i/lado)*tam + midy,tam/2+tam*(i%lado) + midx,(i/lado)*tam+tam/2 + midy);
                 nodos[i].goToStart();
                 for(int k=0;k<nodos[i].getSize();k++){
                     if(nodos[i].getElement()==i-1){
-                        line(tam*(i%lado), (i/lado)*tam+8,tam*(i%lado)-tam, (i/lado)*tam+8);
+                        line(tam*(i%lado) + midx, (i/lado)*tam+8 + midy,tam*(i%lado)-tam + midx, (i/lado)*tam+8 + midy);
                     }
                     if(nodos[i].getElement()==i+1){
-                        line(tam*(i%lado), (i/lado)*tam+8,tam*(i%lado)+tam, (i/lado)*tam+8);
+                        line(tam*(i%lado) + midx, (i/lado)*tam+8 + midy,tam*(i%lado)+tam + midx, (i/lado)*tam+8 + midy);
                     }
                     if(nodos[i].getElement()==i-lado){
-                        line(tam*(i%lado)+8, (i/lado)*tam,tam*(i%lado)+8, (i/lado)*tam+8-tam);
+                        line(tam*(i%lado)+8 + midx, (i/lado)*tam + midy,tam*(i%lado)+8 + midx, (i/lado)*tam+8-tam + midy);
                     }
                     if(nodos[i].getElement()==i+lado){
-                        line(tam*(i%lado)+8, (i/lado)*tam,tam*(i%lado)+8, (i/lado)*tam+8+tam);
+                        line(tam*(i%lado)+8 + midx, (i/lado)*tam + midy,tam*(i%lado)+8 + midx, (i/lado)*tam+8+tam + midy);
                     }
                     nodos[i].next();
                 }
@@ -95,14 +104,14 @@ class ListaAdyacente{
             }
 
             setfillstyle(1,1);
-            bar(tam*(fin%lado),(fin/lado)*tam,tam/2+tam*(fin%lado),(fin/lado)*tam+tam/2);
+            bar(tam*(fin%lado) + midx,(fin/lado)*tam + midy,tam/2+tam*(fin%lado) + midx,(fin/lado)*tam+tam/2 + midy);
             setfillstyle(1,2);
             objects.goToStart();
 
             for(int i=0;i<objects.getSize();i++){
 
                 int e=objects.getElement();
-                bar(tam*(e%lado)+3,(e/lado)*tam+3,tam/2+tam*(e%lado)-3,(e/lado)*tam+tam/2-3);
+                bar(tam*(e%lado)+3 + midx,(e/lado)*tam+3 + midy,tam/2+tam*(e%lado)-3 + midx,(e/lado)*tam+tam/2-3 + midy);
                 objects.next();
             }
 
@@ -207,39 +216,39 @@ class ListaAdyacente{
             switch(pos){
             case 0:
                 setfillstyle(1,4);
-                bar(tam*(jugador%lado), (jugador/lado)*tam,tam/2+tam*(jugador%lado), (jugador/lado)*tam+tam/2);
+                bar(tam*(jugador%lado) + midx, (jugador/lado)*tam + midy,tam/2+tam*(jugador%lado) + midx, (jugador/lado)*tam+tam/2 + midy);
                 break;
             case 1:
                 if((jugador-lado >= 0 )&& (check(jugador-lado,jugador))){
                     jugador-=lado;
                 }
                 setfillstyle(1,4);
-                bar(tam*(jugador%lado), (jugador/lado)*tam,tam/2+tam*(jugador%lado), (jugador/lado)*tam+tam/2);
+                bar(tam*(jugador%lado) + midx, (jugador/lado)*tam + midy,tam/2+tam*(jugador%lado) + midx, (jugador/lado)*tam+tam/2 + midy);
                 break;
             case 2:
                 if((jugador-1>=0 )&& ((jugador-1)/lado==jugador/lado && check(jugador-1, jugador))){
                     jugador--;
                 }
                 setfillstyle(1,4);
-                bar(tam*(jugador%lado), (jugador/lado)*tam, tam/2+tam*(jugador%lado), (jugador/lado)*tam+tam/2);
+                bar(tam*(jugador%lado) + midx, (jugador/lado)*tam + midy, tam/2+tam*(jugador%lado) + midx, (jugador/lado)*tam+tam/2 + midy);
                 break;
             case 3:
                 if(jugador+1<size && (jugador+1)/lado==jugador/lado && check(jugador+1, jugador)){
                     jugador++;
                 }
                 setfillstyle(1,4);
-                bar(tam*(jugador%lado), (jugador/lado)*tam, tam/2+tam*(jugador%lado), (jugador/lado)*tam+tam/2);
+                bar(tam*(jugador%lado) + midx, (jugador/lado)*tam + midy, tam/2+tam*(jugador%lado) + midx, (jugador/lado)*tam+tam/2 + midy);
                 break;
             case 4:
                 if((jugador+lado < size) && (check(jugador+lado, jugador))){
                     jugador+=lado;
                 }
                 setfillstyle(1,4);
-                bar(tam*(jugador%lado), (jugador/lado)*tam, tam/2+tam*(jugador%lado), (jugador/lado)*tam+tam/2);
+                bar(tam*(jugador%lado) + midx, (jugador/lado)*tam + midy, tam/2+tam*(jugador%lado) + midx, (jugador/lado)*tam+tam/2 + midy);
                 break;
             default:
                 setfillstyle(1,4);
-                bar(tam*(jugador%lado),(jugador/lado)*tam,tam/2+tam*(jugador%lado),(jugador/lado)*tam+tam/2);
+                bar(tam*(jugador%lado) + midx,(jugador/lado)*tam + midy,tam/2+tam*(jugador%lado) + midx,(jugador/lado)*tam+tam/2 + midy);
                 break;
             }
         }
@@ -272,9 +281,9 @@ class ListaAdyacente{
             int nodo = camino[fin];
             hintDraw(fin,nodo);
             setfillstyle(1,1);
-            bar(tam*(fin%lado),(fin/lado)*tam,tam/2+tam*(fin%lado),(fin/lado)*tam+tam/2);
+            bar(tam*(fin%lado) + midx,(fin/lado)*tam + midy,tam/2+tam*(fin%lado) + midx,(fin/lado)*tam+tam/2 + midy);
             setfillstyle(1,4);
-            bar(tam*(jugador%lado),(jugador/lado)*tam,tam/2+tam*(jugador%lado),(jugador/lado)*tam+tam/2);
+            bar(tam*(jugador%lado) + midx,(jugador/lado)*tam + midy,tam/2+tam*(jugador%lado) + midx,(jugador/lado)*tam+tam/2 + midy);
 
         }
         /*
@@ -347,19 +356,19 @@ class ListaAdyacente{
         void hintDraw(int nodo, int nodo2){
             setcolor(14);
             setfillstyle(1,14);
-            bar(tam*(nodo%lado),(nodo/lado)*tam,tam/2+tam*(nodo%lado),(nodo/lado)*tam+tam/2);
-            bar(tam*(nodo2%lado),(nodo2/lado)*tam,tam/2+tam*(nodo2%lado),(nodo2/lado)*tam+tam/2);
+            bar(tam*(nodo%lado) + midx,(nodo/lado)*tam + midy,tam/2+tam*(nodo%lado) + midx,(nodo/lado)*tam+tam/2 + midy);
+            bar(tam*(nodo2%lado) + midx,(nodo2/lado)*tam + midy,tam/2+tam*(nodo2%lado) + midx,(nodo2/lado)*tam+tam/2 + midy);
             if(nodo2==nodo-1){
-                line(tam*(nodo%lado), (nodo/lado)*tam+8,tam*(nodo%lado)-tam, (nodo/lado)*tam+8);
+                line(tam*(nodo%lado) + midx, (nodo/lado)*tam+8 + midy,tam*(nodo%lado)-tam + midx, (nodo/lado)*tam+8 + midy);
             }
             if(nodo2==nodo+1){
-                line(tam*(nodo%lado), (nodo/lado)*tam+8,tam*(nodo%lado)+tam, (nodo/lado)*tam+8);
+                line(tam*(nodo%lado) + midx, (nodo/lado)*tam+8 + midy,tam*(nodo%lado)+tam + midx, (nodo/lado)*tam+8 + midy);
             }
             if(nodo2==nodo-lado){
-                line(tam*(nodo%lado)+8, (nodo/lado)*tam,tam*(nodo%lado)+8, (nodo/lado)*tam+8-tam);
+                line(tam*(nodo%lado)+8 + midx, (nodo/lado)*tam + midy,tam*(nodo%lado)+8 + midx, (nodo/lado)*tam+8-tam + midy);
             }
             if(nodo2==nodo+lado){
-                line(tam*(nodo%lado)+8, (nodo/lado)*tam,tam*(nodo%lado)+8, (nodo/lado)*tam+8+tam);
+                line(tam*(nodo%lado)+8 + midx, (nodo/lado)*tam + midy,tam*(nodo%lado)+8 + midx, (nodo/lado)*tam+8+tam + midy);
             }
             nodo=nodo2;
             nodo2=camino[nodo2];

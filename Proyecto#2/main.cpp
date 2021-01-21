@@ -1,5 +1,6 @@
 #include <iostream>
 #include <winbgim.h>
+#include <conio.h>
 #include <stdexcept>
 #include <ctime>
 #include<math.h>
@@ -22,7 +23,7 @@ int main(){
     ListaAdyacente L (4);
     int timer = 0;
 
-    for(int i=5;i=i;i++){
+    for(int i=5;(i=i);i++){
         timer+=20;
         int stime=time(0);
         L.setSize(i*i);
@@ -40,10 +41,13 @@ int main(){
             char * timeString = new char [tiempo.length()+1];
             strcpy(timeString, tiempo.c_str());
             setcolor(15);
+            outtextxy(0, 0, "Tiempo restante: ");
+            outtextxy(230, 0, "       ");// usamos espacios para limpiar el string del tiempo
+            outtextxy(230, 0,timeString);/*
             outtextxy(i*30, 0, "Tiempo restante: ");
             outtextxy(i*30+230, 0, "                                               ");// usamos espacios para limpiar el string del tiempo
             outtextxy(i*30+230, 0,timeString);
-            //outtextxy(i*30+230, 0,tiempo.c_str());
+            //outtextxy(i*30+230, 0,tiempo.c_str());*/
             int pos = getch();
             if(time(0)-stime>=timer){
                 closegraph();
