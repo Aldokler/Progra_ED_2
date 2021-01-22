@@ -39,14 +39,14 @@ int game(){
             //outtextxy(i*30+230, 0,tiempo.c_str());*/
             int pos = getch();
             if(time(0)-stime>=timer){
-                closegraph();
+                cleardevice();
                 cout<<"Perdiste por tiempo!"<<endl;
                 return 0;
             }
 
 
             if(pos==27){// esc para salir
-                closegraph();
+                cleardevice();
                 cout<<endl<<"Has salido del programa."<<endl;
                 return 0;
             }
@@ -76,7 +76,7 @@ int game(){
                 L.labDisplay();
                 L.setPlayerPos(pos);
                 if(time(0)-stime>=timer){
-                closegraph();
+                cleardevice();
                 cout<<"Perdiste por tiempo!"<<endl;
                 return 0;
                 }
@@ -85,6 +85,61 @@ int game(){
         cleardevice();
     }
     return 0;
+}
+
+void subMenu(){
+    unsigned int choice = 0;
+    while (true){
+        setcolor(15);
+        setfillstyle(1,15);
+        outtextxy(600, 10, "A MAZE.ing");
+        bar(480, 100, 880, 150);
+        bar(480, 200, 880, 250);
+        bar(480, 300, 880, 350);
+        bar(480, 400, 880, 450);
+        setbkcolor(15);
+        setcolor(1);
+        outtextxy(555, 110, "Laberinto profundo");
+        outtextxy(555, 210, "Laberinto de Prim");
+        outtextxy(555, 310, "Laberinto de Kruskal");
+        outtextxy(555, 410, "Cancelar");
+        setbkcolor(0);
+        setfillstyle(1,4);
+        if (choice%4 == 0)
+            bar(500, 117, 515, 132);
+        else if (choice%4 == 1)
+            bar(500, 217, 515, 232);
+        else if (choice%4 == 2)
+            bar(500, 317, 515, 332);
+        else
+            bar(500, 417, 515, 432);
+        int tecla = getch();
+        if (tecla == 72)
+            choice--;
+        if (tecla == 80)
+            choice++;
+        else if (tecla == 13){
+            if (choice%4 == 0){
+                cleardevice();
+                game();
+                return;
+            }
+            else if (choice%4 == 1){
+                cleardevice();
+                game();
+                return;
+            }
+            else if (choice%4 == 2){
+                cleardevice();
+                game();
+                return;
+            }
+            else{
+                cleardevice();
+                return;
+            }
+        }
+    }
 }
 
 //añadir un menú inicial
@@ -113,7 +168,7 @@ void menu(){
         else if (tecla == 13){
             if (choice%2 == 0){
                 cleardevice();
-                game();
+                subMenu();
             }
             else
                 return;
