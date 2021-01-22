@@ -9,20 +9,9 @@
 
 using namespace std;
 
-//añadir un menú inicial
-void menu(){
-}
-  //debería recibir el main
-  //int maze size, tiempo on/off
-int main(){
-
-    initwindow (1920,1080);
-    settextstyle(8, 0, 3);
-    setcolor(15);
-    setlinestyle(0, 0, 10);
+int game(){
     ListaAdyacente L (4);
     int timer = 0;
-
     for(int i=5;(i=i);i++){
         timer+=20;
         int stime=time(0);
@@ -95,6 +84,53 @@ int main(){
         }
         cleardevice();
     }
+    return 0;
+}
+
+//añadir un menú inicial
+void menu(){
+    int choice = 0;
+    while (true){
+        setcolor(15);
+        setfillstyle(1,15);
+        outtextxy(600, 10, "A MAZE.ing");
+        bar(480, 100, 880, 150);
+        bar(480, 200, 880, 250);
+        setbkcolor(15);
+        setcolor(1);
+        outtextxy(555, 110, "Jugar");
+        outtextxy(555, 210, "Salir");
+        setbkcolor(0);
+        setfillstyle(1,4);
+        if (choice%2 == 0)
+            bar(500, 117, 515, 132);
+        else
+            bar(500, 217, 515, 232);
+        int tecla = getch();
+        if (tecla == 72 || tecla == 80){
+            choice++;
+        }
+        else if (tecla == 13){
+            if (choice%2 == 0){
+                cleardevice();
+                game();
+            }
+            else
+                return;
+        }
+    }
+}
+  //debería recibir el main
+  //int maze size, tiempo on/off
+int main(){
+    initwindow (1920,1080);
+    settextstyle(8, 0, 3);
+    setcolor(15);
+    setlinestyle(0, 0, 10);
+
+    menu();
+
+    closegraph();
 
     return 0;
 }
