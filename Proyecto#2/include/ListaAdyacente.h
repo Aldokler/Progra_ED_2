@@ -146,10 +146,10 @@ class ListaAdyacente{
 
 
         /*
-        busquedaP se encarga de hacer una busqueda en base a la lista de adyacencia actual.
+        deepSearch se encarga de hacer una busqueda en base a la lista de adyacencia actual.
         Es necesaria para para la busquedaAux
         */
-        void busquedaP(){
+        void deepSearch(){
 
             bool visited[size] = {false};
             srand(time(0));
