@@ -1,6 +1,8 @@
 #ifndef LISTAADYACENTE_H
 #define LISTAADYACENTE_H
 #include "LinkedList.h"
+#include "Nodo.h"
+#include "arraylist.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -176,14 +178,77 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de krustal
         */
         void krustal(){
+          ArrayList<KVPair<Nodo<E>*, Nodo<E>* > > * arcos = new ArrayList<KVPair<Nodo<E>*, Nodo<E>* > >();
+          ArrayList<ArrayList<Nodo<E>*> > * conjuntos = new ArrayList<ArrayList<Nodo<E>*> >();
+          for (int x = 0; x < nodos->getSize(); x++){
+            ArrayList<Nodo<E>*> conjunto = ArrayList<Nodo<E>*>();
+            conjunto.append(&nodos->getElement());
+            conjuntos->append(conjunto);
+            ArrayList<Nodo<E> > * vecinos = nodos->getElement().getVecinos();
+            for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
+              arcos->append(KVPair<Nodo<E>*, Nodo<E>* >(&nodos->getElement(), &vecinos->getElement()));
+            }
+              nodos->next();
+          }
+          arcos = shuffle(arcos);
+          for (arcos->goToStart(); !arcos->atEnd(); arcos->next()){
+            conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getKey()));
+            ArrayList<Nodo<E>*> * one = &conjuntos->getElement();
+            conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getValue()));
+            ArrayList<Nodo<E>*> * two = &conjuntos->getElement();
+            if (!one->contains(arcos->getElement().getValue())){
+              arcos->getElement().getKey().addConexion(arcos->getElement().getValue(), 1);
+              arcos->getElement().getValue().addConexion(arcos->getElement().getKey(), 1);
+                if (one->getSize() >= two->getSize()){
+                  two->goToStart();
+                  while (two->getSize() != 0)
+                    one->append(two->remove());
+                  conjuntos->goToPos(conjuntos->indexOf(two));
+                  conjuntos->remove();
+                }
+                else{
+                  one->goToStart();
+                  while (one->getSize() != 0)
+                    two->append(one->remove());
+                  conjuntos->goToPos(conjuntos->indexOf(one));
+                  conjuntos->remove();
+                }
+              }
+            }
+          }
 
-        }
 
         /*
         Esta funcion se encarga de crear el laberinto con base al algoritmo de prim
         */
         void prim(){
-
+            ArrayList<Nodo<E> > * resultante = new ArrayList<Nodo<E> >();
+            ArrayList<KVPair<Nodo<E>*, Nodo<E>* > > * arcos = new ArrayList<KVPair<Nodo<E>*, Nodo<E>* > >();
+            int cualquiera = rand() % nodos->getSize();
+            nodos->goToPos(cualquiera);
+            resultante->append(nodos->getElement());
+            ArrayList<Nodo<E> > * vecinos = nodos->getElement().getVecinos();
+            for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
+                arcos->append(KVPair<Nodo<E>*, Nodo<E>* >(&nodos->getElement(), &vecinos->getElement()));
+            }
+            while (resultante->getSize() != nodos->getSize()){
+                cualquiera = rand() % arcos->getSize();
+                arcos->goToPos(cualquiera);
+                if (resultante->contains(arcos->getElement().getValue())){
+                    arcos->remove();
+                }
+                else{
+                    arcos->getElement.getKey().addConexion(arcos->getElement().getValue(), 1);
+                    arcos->getElement.getValue().addConexion(arcos->getElement().getKey(), 1);
+                    resultante->append(arcos->getElement().getValue());
+                    vecinos->clear();
+                    vecinos = arcos->getElement().getValue().getVecinos();
+                    for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
+                        arcos->append(KVPair<Nodo<E>*, Nodo<E>* >(&arcos->getElement().getValue(), &vecinos->getElement()));
+                    }
+                }
+            }
+            return nodos;
         }
 
 
