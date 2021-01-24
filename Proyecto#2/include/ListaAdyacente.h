@@ -138,6 +138,15 @@ class ListaAdyacente{
                 }
             }
         }
+
+void krustal(){
+
+}
+
+void prim(){
+
+}
+
         /*
         busqueda se encarga de hacer una busqueda en base a la lista de adyacencia actual
         en la. Es necesaria para para busquedaAux
@@ -415,7 +424,11 @@ class ListaAdyacente{
             return false;
         }
         /*
+<<<<<<< HEAD
         fixCheck es un m�todo que revisa y aregla la union con los nodos, necesario para permitir el sentido doble del movimiento del jugador
+=======
+        fixCheck es un m�todo que revisa y arela la union con los nodos Necesario para permitir el sentido doble del movimiento del jugador
+>>>>>>> ab2c0241acd75210c4bd6b85b770caac0f4a4d44
         en el laberinto.
         */
         void fixCheck(){
