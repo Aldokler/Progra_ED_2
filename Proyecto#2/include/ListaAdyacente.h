@@ -178,24 +178,24 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de krustal
         */
         void krustal(){
-          ArrayList<KVPair<Nodo<E>*, Nodo<E>* > > * arcos = new ArrayList<KVPair<Nodo<E>*, Nodo<E>* > >();
-          ArrayList<ArrayList<Nodo<E>*> > * conjuntos = new ArrayList<ArrayList<Nodo<E>*> >();
+          LinkedList<int> *arcos;
+          LinkedList<LinkedList<int>*> *conjuntos;
           for (int x = 0; x < nodos->getSize(); x++){
-            ArrayList<Nodo<E>*> conjunto = ArrayList<Nodo<E>*>();
-            conjunto.append(&nodos->getElement());
+            LinkedList<int> *conjunto;
+            conjunto->append(nodos->getElement());
             conjuntos->append(conjunto);
-            ArrayList<Nodo<E> > * vecinos = nodos->getElement().getVecinos();
+            LinkedList<int> * vecinos = nodos->getElement().getVecinos();
             for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-              arcos->append(KVPair<Nodo<E>*, Nodo<E>* >(&nodos->getElement(), &vecinos->getElement()));
+              arcos->append(KVPair<Nodo<int>*, Nodo<int>* >(&nodos->getElement(), &vecinos->getElement()));
             }
               nodos->next();
           }
           arcos = shuffle(arcos);
           for (arcos->goToStart(); !arcos->atEnd(); arcos->next()){
             conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getKey()));
-            ArrayList<Nodo<E>*> * one = &conjuntos->getElement();
+            ArrayList<Nodo<int>*> * one = &conjuntos->getElement();
             conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getValue()));
-            ArrayList<Nodo<E>*> * two = &conjuntos->getElement();
+            ArrayList<Nodo<int>*> * two = &conjuntos->getElement();
             if (!one->contains(arcos->getElement().getValue())){
               arcos->getElement().getKey().addConexion(arcos->getElement().getValue(), 1);
               arcos->getElement().getValue().addConexion(arcos->getElement().getKey(), 1);
