@@ -9,15 +9,26 @@
 
 using namespace std;
 
-int game(){
+int game(int num){
     ListaAdyacente L (5);
     int timer = 15;
     for(int i=5;(i=i);i++){
         int stime=time(0);
         L.setSize(i*i);
         L.vecinos();
-        L.busquedaP();
-        L.addExtra(i);
+
+        if(num==0){
+          L.busquedaP();
+          L.addExtra(i);
+        }
+        if(num==1){
+          L.krustal();
+        }
+        if(num==2){
+          L.prim();
+        }
+
+
         L.initialize();
         L.labDisplay();
         L.setPlayerPos();
@@ -121,17 +132,17 @@ void subMenu(){
         else if (tecla == 13){
             if (choice%4 == 0){
                 cleardevice();
-                game();
+                game(0);
                 return;
             }
             else if (choice%4 == 1){
                 cleardevice();
-                game();
+                game(1);
                 return;
             }
             else if (choice%4 == 2){
                 cleardevice();
-                game();
+                game(2);
                 return;
             }
             else{
