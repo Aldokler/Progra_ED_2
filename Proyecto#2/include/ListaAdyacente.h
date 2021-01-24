@@ -141,13 +141,6 @@ class ListaAdyacente{
             }
         }
 
-void krustal(){
-
-}
-
-void prim(){
-
-}
 
         /*
         busquedaP se encarga de hacer una busqueda en base a la lista de adyacencia actual.
@@ -177,6 +170,23 @@ void prim(){
             fixCheck();
             }
         }
+
+        /*
+        Esta funcion se encarga de crear el laberinto con base al algoritmo de krustal
+        */
+        void krustal(){
+
+
+        }
+
+        /*
+        Esta funcion se encarga de crear el laberinto con base al algoritmo de prim
+        */
+        void prim(){
+
+        }
+
+
         /*
         addExtra es un metodo que se encarga de agregar arcos extra a el laberinto permitiendo que este se encicle.
         */
