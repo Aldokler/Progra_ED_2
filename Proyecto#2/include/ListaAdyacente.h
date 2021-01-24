@@ -8,9 +8,11 @@
 #include <winbgim.h>
 #include<math.h>
 using namespace std;
-/* Creada por Samuel Artavia nombres
+/* Creado por Samuel Artavia//Aivy Masis// David Pastor
 
-esta es la clase que genera y maneja las listas adyacentes y el algoritmo de djikstra
+esta es la clase que genera y maneja las listas adyacentes y los nodos que conectan los grafos
+para las varias formas de crear un laberinto, ademas este dibuja en pantalla el Laberinto
+ y el algoritmo de djikstra es usado para resolverlos.
 */
 class ListaAdyacente{
     private:
@@ -117,7 +119,7 @@ class ListaAdyacente{
 
         }
         /*
-        vecinos se utiliza para crear un laberinto l�gico en el que cada uno de los nodos estar� unido por
+        vecinos se utiliza para crear un laberinto logico en el que cada uno de los nodos estara unido por
         sus cuatro vecinos nodo derecho, izquierdo, superior e inferior de existir estos.
         */
         void vecinos(){
@@ -141,8 +143,8 @@ class ListaAdyacente{
 
 
         /*
-        busqueda se encarga de hacer una busqueda en base a la lista de adyacencia actual
-        en la. Es necesaria para para busquedaAux
+        busquedaP se encarga de hacer una busqueda en base a la lista de adyacencia actual.
+        Es necesaria para para la busquedaAux
         */
         void busquedaP(){
 
@@ -186,7 +188,7 @@ class ListaAdyacente{
 
 
         /*
-        addExtra es un m�todo que se encarga de agregar arcos extra a el laberinto permitiendo que este se encicle.
+        addExtra es un metodo que se encarga de agregar arcos extra a el laberinto permitiendo que este se encicle.
         */
         void addExtra(int cantidad){
             srand(time(0));
@@ -209,7 +211,7 @@ class ListaAdyacente{
             fixCheck();
         }
         /*
-        initialize es un m�todo que se encarga de setear la posici�n del jugador, la salida y los objetos
+        initialize es un metodo que se encarga de setear la posicion del jugador, la salida y los objetos
         del laberinto de manera alearotia.
         */
         void initialize(){
@@ -228,8 +230,8 @@ class ListaAdyacente{
             }
         }
         /*
-        setPlayerPos es un m�todo encargado de revisar las movidas del jugador y si estas son
-        v�lidas de dibujar al jugador en pantalla con su nueva posici�n.
+        setPlayerPos es un metodo encargado de revisar las movidas del jugador y si estas son
+        validas de dibujar al jugador en pantalla con su nueva posicion.
         */
         void setPlayerPos(int pos=0){
             switch(pos){
@@ -273,9 +275,9 @@ class ListaAdyacente{
         }
 
         /*
-        djikstraAlgorithm es el m�todo encargado de realizar el algoritmo de djikstra en la lista de
-        adyacencia actual con respecto a la posici�n del jugador. Inicializa los valores necesarios para que se
-        de la recursi�n en el m�todo djikstraAux.
+        djikstraAlgorithm es el metodo encargado de realizar el algoritmo de djikstra en la lista de
+        adyacencia actual con respecto a la posicion del jugador. Inicializa los valores necesarios para que se
+        de la recursion en el metodo djikstraAux.
         */
         void djikstraAlgorithm(){
             for(int i=0;i<size;i++){
@@ -290,7 +292,7 @@ class ListaAdyacente{
         }
         /*
         hint se encarga de dibujar el laberinto con base al algoritmo de djikstra, mostrando el
-        laberinto con un camino resaltado siendo este el m�s corto entre el jugador y la salida.
+        laberinto con un camino resaltado siendo este el mas corto entre el jugador y la salida.
         */
         void hint(){
             djikstraAlgorithm();
@@ -305,7 +307,7 @@ class ListaAdyacente{
 
         }
         /*
-        atEnd es un m�todo que se encarga de revisar si el jugador se encuentra en la salida y si este ha recogido todos los
+        atEnd es un metodo que se encarga de revisar si el jugador se encuentra en la salida y si este ha recogido todos los
         objetos en el laberinto. Utilizado para avanzar de nivel.
         */
         bool atEnd(){
@@ -316,8 +318,8 @@ class ListaAdyacente{
         }
 
         /*
-        busquedaAux es un m�todo encargado de implementar la recursi�n del algoritmo de busqueda por profundidad
-        encargado de la parte l�gica de la creaci�n del laberinto.
+        busquedaAux es un metodo encargado de implementar la recursion del algoritmo de busqueda por profundidad
+        encargado de la parte logica de la creacion del laberinto.
         */
         void busquedaAux(bool visited[], int nodo, int nodo2){
             visited[nodo2]=true;
@@ -340,8 +342,8 @@ class ListaAdyacente{
             }
         }
         /*
-        djikstraAux es un m�todo que se encarga de implementar la recursi�n del algoritmo de djikstra, encargado
-        de la busqueda del camino m�s corto entre sus nodos
+        djikstraAux es un metodo que se encarga de implementar la recursion del algoritmo de djikstra, encargado
+        de la busqueda del camino mas corto entre sus nodos
         */
         void djikstraAux(int nodo){
             nodos[nodo].goToStart();
@@ -369,7 +371,7 @@ class ListaAdyacente{
             return;
         }
         /*
-        hintDraw es un m�todo para dibujar el camino m�s corto entre los nodos.
+        hintDraw es un metodo para dibujar el camino mas corto entre los nodos.
         */
         void hintDraw(int nodo, int nodo2){
             setcolor(14);
@@ -396,7 +398,7 @@ class ListaAdyacente{
             return;
         }
         /*
-        objectCheck es un m�todo para identificar el objeto y removerlo si el jugador est� encima de el
+        objectCheck es un metodo para identificar el objeto y removerlo si el jugador esta encima de el
         */
 
         void objectCheck(){
@@ -409,7 +411,7 @@ class ListaAdyacente{
             }
         }
         /*
-        checkVisitados es una funci�n booleana que verifica si los objetos fueron todos visitados
+        checkVisitados es una funcion booleana que verifica si los objetos fueron todos visitados
         */
         bool checkVisitados(){
             for(int i=0;i<size;i++){
@@ -420,8 +422,8 @@ class ListaAdyacente{
             return true;
         }
         /*
-        check es una funci�n encargada de revisar si hay una instancia de un nodo en la lista de vecinos de otro. Utilizado
-        para debuggear y para revisar que el movimiento del jugador sea v�lido.
+        check es una funcion encargada de revisar si hay una instancia de un nodo en la lista de vecinos de otro. Utilizado
+        para debuggear y para revisar que el movimiento del jugador sea valido.
         */
         bool check(int nodo, int nodo2){
             nodos[nodo2].goToStart();
@@ -434,7 +436,7 @@ class ListaAdyacente{
             return false;
         }
         /*
-        fixCheck es un m�todo que revisa y aregla la union con los nodos, necesario para permitir el sentido doble del movimiento del jugador
+        fixCheck es un metodo que revisa y aregla la union con los nodos, necesario para permitir el sentido doble del movimiento del jugador
         en el laberinto.
         */
         void fixCheck(){
