@@ -10,9 +10,9 @@
 using namespace std;
 
 int game(){
-    ListaAdyacente L (4);
+    ListaAdyacente L (5);
     int timer = 0;
-    for(int i=20;(i=i);i++){
+    for(int i=5;(i=i);i++){
         timer+=20;
         int stime=time(0);
         L.setSize(i*i);

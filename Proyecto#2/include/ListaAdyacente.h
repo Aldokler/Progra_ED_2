@@ -275,7 +275,6 @@ class ListaAdyacente{
         */
         void hint(){
             djikstraAlgorithm();
-            labDisplay();
             setcolor(5);
             setfillstyle(1,15);
             int nodo = camino[fin];
