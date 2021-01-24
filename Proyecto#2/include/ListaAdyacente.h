@@ -6,7 +6,7 @@
 #include <time.h>
 #include <stdexcept>
 #include <winbgim.h>
-#include<math.h>
+#include <math.h>
 using namespace std;
 /* Creado por Samuel Artavia//Aivy Masis// David Pastor
 
