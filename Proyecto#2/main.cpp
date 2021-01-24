@@ -11,17 +11,17 @@ using namespace std;
 
 int game(){
     ListaAdyacente L (5);
-    int timer = 0;
+    int timer = 15;
     for(int i=5;(i=i);i++){
-        timer+=20;
         int stime=time(0);
         L.setSize(i*i);
         L.vecinos();
-        L.busqueda();
+        L.busquedaP();
         L.addExtra(i);
         L.initialize();
         L.labDisplay();
         L.setPlayerPos();
+        timer+=(timer/3);
 
 
         while(!L.atEnd()){
@@ -142,7 +142,7 @@ void subMenu(){
     }
 }
 
-//añadir un menú inicial
+//aï¿½adir un menï¿½ inicial
 void menu(){
     int choice = 0;
     while (true){
@@ -175,7 +175,7 @@ void menu(){
         }
     }
 }
-  //debería recibir el main
+  //deberï¿½a recibir el main
   //int maze size, tiempo on/off
 int main(){
     initwindow (1920,1080);
