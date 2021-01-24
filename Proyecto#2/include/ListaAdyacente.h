@@ -6,7 +6,8 @@
 #include <time.h>
 #include <stdexcept>
 #include <winbgim.h>
-#include<math.h>
+#include <math.h>
+
 using namespace std;
 /* Creado por Samuel Artavia//Aivy Masis// David Pastor
 
@@ -175,7 +176,6 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de krustal
         */
         void krustal(){
-
 
         }
 
@@ -357,7 +357,7 @@ class ListaAdyacente{
                 nodos[nodo].next();
             }
             int distancia = 99999;
-            int menor;
+            int menor=0;
             for(int i=0;i<size;i++){
                 if(visitados[i]==false && distancias[i]<distancia){
                     menor = i;

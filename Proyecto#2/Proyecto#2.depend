@@ -144,15 +144,11 @@
 
 1601072663 d:\users\xdavi\github\progra_ed_2\proyecto#2\include\node.h
 
-<<<<<<< HEAD
 1611464390 D
 
 1611468602 source:c:\users\26399\github\progra_final\proyecto#2\main.cpp
 
 1611470599 source:c:\users\aivym\github\progra_ed_2\proyecto#2\main.cpp
-=======
-1611464390 source:c:\users\aivym\github\progra_ed_2\proyecto#2\main.cpp
->>>>>>> 283155ef36fd9ad5d11b849d2e8af211b94b3014
 	<iostream>
 	<winbgim.h>
 	<conio.h>
@@ -161,7 +157,22 @@
 	<math.h>
 	"ListaAdyacente.h"
 
-<<<<<<< HEAD
+1611457303 155ef36fd9ad5d11b849d2e8af211b94b3014
+	<iostream>
+	<winbgim.h>
+	<conio.h>
+	<stdexcept>
+	<ctime>
+	<math.h>
+	"ListaAdyacente.h"
+	"LinkedList.h"
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<stdexcept>
+	<winbgim.h>
+	<math.h>
+
 1611457303 c0241acd75210c4bd6b85b770caac0f4a4d44
 	<iostream>
 	<winbgim.h>
@@ -180,10 +191,7 @@
 
 1611468731 c:\users\26399\github\progra_final\proyecto#2\include\listaadyacente.h
 
-1611469935 c:\users\aivym\github\progra_ed_2\proyecto#2\include\listaadyacente.h
-=======
-1611457303 c:\users\aivym\github\progra_ed_2\proyecto#2\include\listaadyacente.h
->>>>>>> 283155ef36fd9ad5d11b849d2e8af211b94b3014
+1611472778 c:\users\aivym\github\progra_ed_2\proyecto#2\include\listaadyacente.h
 	"LinkedList.h"
 	<iostream>
 	<stdlib.h>
@@ -201,4 +209,10 @@
 1611457303 c:\users\aivym\github\progra_ed_2\proyecto#2\include\list.h
 
 1611457303 c:\users\aivym\github\progra_ed_2\proyecto#2\include\node.h
+
+1611165636 c:\users\aivym\github\progra_ed_2\proyecto#2\include\kvpair.h
+
+1611165636 c:\users\aivym\github\progra_ed_2\proyecto#2\include\nodo.h
+	"HashTable.h"
+	"arraylist.h"
 
