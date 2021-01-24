@@ -105,7 +105,7 @@ class ListaAdyacente{
 
             setfillstyle(1,1);
             bar(tam*(fin%lado) + midx,(fin/lado)*tam + midy,tam/2+tam*(fin%lado) + midx,(fin/lado)*tam+tam/2 + midy);
-            setfillstyle(1,2);
+            setfillstyle(1,10);
             objects.goToStart();
 
             for(int i=0;i<objects.getSize();i++){
