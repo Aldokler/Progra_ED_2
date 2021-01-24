@@ -3,7 +3,7 @@
 #include <conio.h>
 #include <stdexcept>
 #include <ctime>
-#include<math.h>
+#include <math.h>
 #include "ListaAdyacente.h"
 
 

@@ -7,7 +7,10 @@
 #include <stdexcept>
 #include <winbgim.h>
 #include <math.h>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 71a1a4c20174021a51ca7f937708c7d663a03cff
 using namespace std;
 /* Creado por Samuel Artavia//Aivy Masis// David Pastor
 
