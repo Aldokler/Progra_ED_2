@@ -2,7 +2,8 @@
 #define LISTAADYACENTE_H
 #include "LinkedList.h"
 #include "Nodo.h"
-#include "arraylist.h"
+
+#include "KVPair.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -19,6 +20,7 @@ para las varias formas de crear un laberinto, ademas este dibuja en pantalla el 
 */
 class ListaAdyacente{
     private:
+
         LinkedList<int> *nodos;
         int size;
         int jugador;
@@ -178,42 +180,42 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de krustal
         */
         void krustal(){
-          LinkedList<int> *arcos;
-          LinkedList<LinkedList<int>*> *conjuntos;
-          for (int x = 0; x < nodos->getSize(); x++){
-            LinkedList<int> *conjunto;
-            conjunto->append(nodos->getElement());
-            conjuntos->append(conjunto);
-            LinkedList<int> * vecinos = nodos->getElement().getVecinos();
-            for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-              arcos->append(KVPair<Nodo<int>*, Nodo<int>* >(&nodos->getElement(), &vecinos->getElement()));
+            LinkedList<KVPair<Nodo<int>*, Nodo<int>* > > * arcos;
+            LinkedList<LinkedList<Nodo<int>*> > * conjuntos;
+            for (int x = 0; x < nodos->getSize(); x++){
+                LinkedList<Nodo<int>*> *conjunto;
+                conjunto->append(&nodos->getElement());
+                conjuntos->append(conjunto);
+                LinkedList<Nodo<int> > * vecinos = nodos->getElement().getVecinos();
+                for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
+                    arcos->append(KVPair<Nodo<int>*, Nodo<int>* >(&nodos->getElement(), &vecinos->getElement()));
+                }
+                nodos->next();
             }
-              nodos->next();
-          }
-          arcos = shuffle(arcos);
-          for (arcos->goToStart(); !arcos->atEnd(); arcos->next()){
-            conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getKey()));
-            ArrayList<Nodo<int>*> * one = &conjuntos->getElement();
-            conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getValue()));
-            ArrayList<Nodo<int>*> * two = &conjuntos->getElement();
-            if (!one->contains(arcos->getElement().getValue())){
-              arcos->getElement().getKey().addConexion(arcos->getElement().getValue(), 1);
-              arcos->getElement().getValue().addConexion(arcos->getElement().getKey(), 1);
-                if (one->getSize() >= two->getSize()){
-                  two->goToStart();
-                  while (two->getSize() != 0)
-                    one->append(two->remove());
-                  conjuntos->goToPos(conjuntos->indexOf(two));
-                  conjuntos->remove();
+            arcos = shuffle(arcos);
+            for (arcos->goToStart(); !arcos->atEnd(); arcos->next()){
+                conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getKey()));
+                LinkedList<Nodo<int>*> * one = &conjuntos->getElement();
+                conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getValue()));
+                LinkedList<Nodo<int>*> * two = &conjuntos->getElement();
+                if (!one->contains(arcos->getElement().getValue())){
+                    arcos->getElement().getKey().addConexion(arcos->getElement().getValue(), 1);
+                    arcos->getElement().getValue().addConexion(arcos->getElement().getKey(), 1);
+                    if (one->getSize() >= two->getSize()){
+                        two->goToStart();
+                        while (two->getSize() != 0)
+                            one->append(two->remove());
+                        conjuntos->goToPos(conjuntos->indexOf(two));
+                        conjuntos->remove();
+                    }
+                    else{
+                        one->goToStart();
+                        while (one->getSize() != 0)
+                            two->append(one->remove());
+                        conjuntos->goToPos(conjuntos->indexOf(one));
+                        conjuntos->remove();
+                    }
                 }
-                else{
-                  one->goToStart();
-                  while (one->getSize() != 0)
-                    two->append(one->remove());
-                  conjuntos->goToPos(conjuntos->indexOf(one));
-                  conjuntos->remove();
-                }
-              }
             }
           }
 
@@ -222,12 +224,12 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de prim
         */
         void prim(){
-            ArrayList<Nodo<E> > * resultante = new ArrayList<Nodo<E> >();
-            ArrayList<KVPair<Nodo<E>*, Nodo<E>* > > * arcos = new ArrayList<KVPair<Nodo<E>*, Nodo<E>* > >();
+            LinkedList<Nodo<E> > * resultante = new LinkedList<Nodo<E> >();
+            LinkedList<KVPair<Nodo<E>*, Nodo<E>* > > * arcos = new LinkedList<KVPair<Nodo<E>*, Nodo<E>* > >();
             int cualquiera = rand() % nodos->getSize();
             nodos->goToPos(cualquiera);
             resultante->append(nodos->getElement());
-            ArrayList<Nodo<E> > * vecinos = nodos->getElement().getVecinos();
+            LinkedList<Nodo<E> > * vecinos = nodos->getElement().getVecinos();
             for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
                 arcos->append(KVPair<Nodo<E>*, Nodo<E>* >(&nodos->getElement(), &vecinos->getElement()));
             }

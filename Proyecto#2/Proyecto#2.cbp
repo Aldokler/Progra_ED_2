@@ -40,7 +40,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Dictionary.h" />
+		<Unit filename="include/HashTable.h" />
+		<Unit filename="include/KVPair.h" />
 		<Unit filename="include/ListaAdyacente.h" />
+		<Unit filename="include/Nodo.h" />
+		<Unit filename="include/arraylist.h" />
 		<Unit filename="include/linkedlist.h" />
 		<Unit filename="include/list.h" />
 		<Unit filename="include/node.h" />
