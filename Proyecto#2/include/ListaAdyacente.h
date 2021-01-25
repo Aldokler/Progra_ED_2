@@ -18,9 +18,11 @@ esta es la clase que genera y maneja las listas adyacentes y los nodos que conec
 para las varias formas de crear un laberinto, ademas este dibuja en pantalla el Laberinto
  y el algoritmo de djikstra es usado para resolverlos.
 */
+template <typename E>
 class ListaAdyacente{
     private:
 
+        ArrayList<Nodo<E> > * escrofulas;
         LinkedList<int> *nodos;
         int size;
         int jugador;
@@ -35,6 +37,27 @@ class ListaAdyacente{
         int *distancias;
 
         LinkedList<int> objects;
+
+        ArrayList<KVPair<Nodo<E>, Nodo<E> > > * shuffle(ArrayList<KVPair<Nodo<E>, Nodo<E> > > * lista){
+            ArrayList<KVPair<Nodo<E>, Nodo<E> > > * nuevo = new ArrayList<KVPair<Nodo<E>, Nodo<E> > >();
+            while (lista->getSize() != 0){
+                int pos = rand() % lista->getSize();
+                lista->goToPos(pos);
+                nuevo->append(lista->remove());
+            }
+            return nuevo;
+        }
+
+        void clearEscrofulas(){
+            escrofulas->clear();
+        }
+
+        int getOcurrence(ArrayList<Nodo<E> > * lista, Nodo<E> element){
+            for (int x = 0; x < lista->getSize(); x++)
+                if (lista->contains(element))
+                    return x;
+            return -1;
+        }
     public:
         ListaAdyacente(int size){
 
@@ -177,80 +200,93 @@ class ListaAdyacente{
         }
 
         /*
-        Esta funcion se encarga de crear el laberinto con base al algoritmo de krustal
+        Esta funcion se encarga de crear el laberinto con base al algoritmo de kruskal
         */
-        void krustal(){
-            LinkedList<KVPair<Nodo<int>*, Nodo<int>* > > * arcos;
-            LinkedList<LinkedList<Nodo<int>*> > * conjuntos;
-            for (int x = 0; x < nodos->getSize(); x++){
-                LinkedList<Nodo<int>*> *conjunto;
-                conjunto->append(&nodos->getElement());
-                conjuntos->append(conjunto);
-                LinkedList<Nodo<int> > * vecinos = nodos->getElement().getVecinos();
+        void kruskal(){
+            clearEscrofulas();
+            ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E> , Nodo<E> > >();
+            ArrayList<Nodo<E> > * conjuntos = new ArrayList<Nodo<E> > [escrofulas->getSize()];
+            for (int x = 0; x < escrofulas->getSize(); x++){
+                conjuntos[x].append(escrofulas->getElement());
+                ArrayList<Nodo<E> > * vecinos = escrofulas->getElement().getVecinos();
                 for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-                    arcos->append(KVPair<Nodo<int>*, Nodo<int>* >(&nodos->getElement(), &vecinos->getElement()));
+                    arcos->append(KVPair<Nodo<E>, Nodo<E> >(escrofulas->getElement(), vecinos->getElement()));
                 }
-                nodos->next();
+                escrofulas->next();
             }
             arcos = shuffle(arcos);
             for (arcos->goToStart(); !arcos->atEnd(); arcos->next()){
-                conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getKey()));
-                LinkedList<Nodo<int>*> * one = &conjuntos->getElement();
-                conjuntos->goToPos(getOcurrence(conjuntos, arcos->getElement().getValue()));
-                LinkedList<Nodo<int>*> * two = &conjuntos->getElement();
+                int posUno = -1;
+                int posDos = -1;
+                for (int x = 0; x < escrofulas->getSize(); x++){
+                    if (conjuntos[x].contains(arcos->getElement().getKey())){
+                        posUno = x;
+                        break;
+                    }
+                }
+                for (int x = 0; x < escrofulas->getSize(); x++){
+                    if (conjuntos[x].contains(arcos->getElement().getValue())){
+                        posDos = x;
+                        break;
+                    }
+                }
+                conjuntos[posUno].goToPos(getOcurrence(conjuntos, arcos->getElement().getKey()));
+                ArrayList<Nodo<E> > * one = &conjuntos[posUno];
+                conjuntos[posDos].goToPos(getOcurrence(conjuntos, arcos->getElement().getValue()));
+                ArrayList<Nodo<E> > * two = &conjuntos[posDos];
                 if (!one->contains(arcos->getElement().getValue())){
-                    arcos->getElement().getKey().addConexion(arcos->getElement().getValue(), 1);
-                    arcos->getElement().getValue().addConexion(arcos->getElement().getKey(), 1);
+                    escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getKey()));
+                    escrofulas->getElement().addConexion(arcos->getElement().getValue());
+                    escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getValue()));
+                    escrofulas->getElement().addConexion(arcos->getElement().getKey());
                     if (one->getSize() >= two->getSize()){
                         two->goToStart();
                         while (two->getSize() != 0)
                             one->append(two->remove());
-                        conjuntos->goToPos(conjuntos->indexOf(two));
-                        conjuntos->remove();
                     }
                     else{
                         one->goToStart();
                         while (one->getSize() != 0)
                             two->append(one->remove());
-                        conjuntos->goToPos(conjuntos->indexOf(one));
-                        conjuntos->remove();
                     }
                 }
             }
-          }
+        }
 
 
         /*
         Esta funcion se encarga de crear el laberinto con base al algoritmo de prim
         */
         void prim(){
-            LinkedList<Nodo<E> > * resultante = new LinkedList<Nodo<E> >();
-            LinkedList<KVPair<Nodo<E>*, Nodo<E>* > > * arcos = new LinkedList<KVPair<Nodo<E>*, Nodo<E>* > >();
-            int cualquiera = rand() % nodos->getSize();
-            nodos->goToPos(cualquiera);
-            resultante->append(nodos->getElement());
-            LinkedList<Nodo<E> > * vecinos = nodos->getElement().getVecinos();
+            clearEscrofulas();
+            ArrayList<Nodo<E> > * resultante = new ArrayList<Nodo<E> >();
+            ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E>, Nodo<E> > >();
+            E cualquiera = rand() % escrofulas->getSize();
+            escrofulas->goToPos(cualquiera);
+            resultante->append(escrofulas->getElement());
+            ArrayList<Nodo<E> > * vecinos = escrofulas->getElement().getVecinos();
             for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-                arcos->append(KVPair<Nodo<E>*, Nodo<E>* >(&nodos->getElement(), &vecinos->getElement()));
+                arcos->append(KVPair<Nodo<E>, Nodo<E> >(escrofulas->getElement(), vecinos->getElement()));
             }
-            while (resultante->getSize() != nodos->getSize()){
+            while (resultante->getSize() != escrofulas->getSize()){
                 cualquiera = rand() % arcos->getSize();
                 arcos->goToPos(cualquiera);
                 if (resultante->contains(arcos->getElement().getValue())){
                     arcos->remove();
                 }
                 else{
-                    arcos->getElement.getKey().addConexion(arcos->getElement().getValue(), 1);
-                    arcos->getElement.getValue().addConexion(arcos->getElement().getKey(), 1);
+                    escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getKey()));
+                    escrofulas->getElement().addConexion(arcos->getElement().getValue());
+                    escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getValue()));
+                    escrofulas->getElement().addConexion(arcos->getElement().getKey());
                     resultante->append(arcos->getElement().getValue());
                     vecinos->clear();
                     vecinos = arcos->getElement().getValue().getVecinos();
                     for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-                        arcos->append(KVPair<Nodo<E>*, Nodo<E>* >(&arcos->getElement().getValue(), &vecinos->getElement()));
+                        arcos->append(KVPair<Nodo<E>, Nodo<E> >(arcos->getElement().getValue(), vecinos->getElement()));
                     }
                 }
             }
-            return nodos;
         }
 
 

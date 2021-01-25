@@ -10,7 +10,7 @@
 using namespace std;
 
 int game(int num){
-    ListaAdyacente L (5);
+    ListaAdyacente<int> L (5);
     int timer = 15;
     for(int i=5;(i=i);i++){
         int stime=time(0);
@@ -22,7 +22,7 @@ int game(int num){
           L.addExtra(i);
         }
         if(num==1){
-          L.krustal();
+          L.kruskal();
         }
         if(num==2){
           L.prim();

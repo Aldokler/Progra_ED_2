@@ -24,8 +24,6 @@ public:
     virtual bool atEnd() = 0;
     virtual int getPos() = 0;
     virtual int getSize() = 0;
-    virtual void reverse()=0;
-    virtual bool equals(List<E> * L)=0;
 };
 
 #endif // LIST_H

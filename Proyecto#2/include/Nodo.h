@@ -1,19 +1,22 @@
 #ifndef NODO_H
 #define NODO_H
-#include "HashTable.h"
 #include "arraylist.h"
 
 template <typename E>
 class Nodo {
 private:
     E element;
-    HashTable<Nodo<E>, int> * conexiones;
+    ArrayList<Nodo<E> > * conexiones;
     ArrayList<Nodo<E> > * vecinos;
 
 public:
     Nodo(E element){
         this->element = element;
-        conexiones = new HashTable<Nodo<E>, int>();
+        conexiones = new ArrayList<Nodo<E> >();
+        vecinos = new ArrayList<Nodo<E> >();
+    }
+    Nodo(){
+        conexiones = new ArrayList<Nodo<E> >();
         vecinos = new ArrayList<Nodo<E> >();
     }
     void operator= (const Nodo &other) {
@@ -47,12 +50,8 @@ public:
         return element;
     }
 
-    HashTable<Nodo<E>, int> getConexiones(){
+    ArrayList<Nodo<E> > getConexiones(){
         return conexiones;
-    }
-
-    int getPeso(Nodo<E> nodito){
-        return conexiones->getValue(nodito);
     }
 
     bool isVecino(Nodo<E> vecino){
@@ -72,8 +71,8 @@ public:
         vecinos->remove();
     }
 
-    void addConexion(Nodo<E> elemento, int peso){
-        conexiones->insert(elemento, peso);
+    void addConexion(Nodo<E> elemento){
+        conexiones->append(elemento);
     }
 
     void removeConexion(Nodo<E> elemento){
