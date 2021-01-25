@@ -113,8 +113,8 @@ void subMenu(){
         setbkcolor(15);
         setcolor(1);
         outtextxy(555, 110, "Laberinto profundo");
-        outtextxy(555, 210, "Laberinto de Prim");
-        outtextxy(555, 310, "Laberinto de Kruskal");
+        outtextxy(555, 210, "Laberinto de Kruskal");
+        outtextxy(555, 310, "Laberinto de Prim");
         outtextxy(555, 410, "Cancelar");
         setbkcolor(0);
         setfillstyle(1,4);

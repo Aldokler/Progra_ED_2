@@ -54,6 +54,13 @@ class ListaAdyacente{
                     return x;
             return -1;
         }
+
+        bool finished(){
+            for (escrofulas->goToStart(); !escrofulas->atEnd(); escrofulas->next())
+                if (escrofulas->getElement().getConexiones()->getSize() == 0)
+                    return false;
+            return true;
+        }
     public:
         ListaAdyacente(int size){
 
@@ -247,15 +254,17 @@ class ListaAdyacente{
                     escrofulas->getElement().addConexion(arcos->getElement().getKey().getElement());
                     if (one->getSize() >= two->getSize()){
                         two->goToStart();
-                        while (two->getSize() != 0)
+                        while (!two->atEnd())
                             one->append(two->remove());
                     }
                     else{
                         one->goToStart();
-                        while (one->getSize() != 0)
+                        while (!one->atEnd())
                             two->append(one->remove());
                     }
                 }
+                if (finished())
+                    return;
             }
         }
 
@@ -287,10 +296,12 @@ class ListaAdyacente{
                     resultante->append(arcos->getElement().getValue());
                     vecinos->clear();
                     vecinos = arcos->getElement().getValue().getVecinos();
-                    for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-                        arcos->append(KVPair<Nodo<E>, Nodo<E> >(arcos->getElement().getValue(), vecinos->getElement()));
-                    }
+                    for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next())
+                        if (vecinos->getElement() != arcos->getElement().getKey().getElement())
+                            arcos->append(KVPair<Nodo<E>, Nodo<E> >(arcos->getElement().getValue(), vecinos->getElement()));
                 }
+                if (finished())
+                    return;
             }
         }
 

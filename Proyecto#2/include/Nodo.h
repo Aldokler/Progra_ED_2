@@ -52,10 +52,8 @@ public:
 
     ArrayList<Nodo<E> > * getConexiones(){
         ArrayList<Nodo<E> > * result = new ArrayList<Nodo<E> >();
-        for (conexiones->goToStart(); !conexiones->atEnd(); conexiones->next()){
-            Nodo<E> escrofo(vecinos->getElement());
-            result->append(escrofo);
-        }
+        for (conexiones->goToStart(); !conexiones->atEnd(); conexiones->next())
+            result->append(Nodo<E> (conexiones->getElement()));
         return result;
     }
 
@@ -90,10 +88,8 @@ public:
 
     ArrayList<Nodo<E> > * getVecinos(){
         ArrayList<Nodo<E> > * result = new ArrayList<Nodo<E> >();
-        for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-            Nodo<E> escrofo(vecinos->getElement());
-            result->append(escrofo);
-        }
+        for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next())
+            result->append(Nodo<E> (vecinos->getElement()));
         return result;
     }
 
