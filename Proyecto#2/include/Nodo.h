@@ -88,8 +88,10 @@ public:
 
     ArrayList<Nodo<E> > * getVecinos(){
         ArrayList<Nodo<E> > * result = new ArrayList<Nodo<E> >();
-        for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next())
+        for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
+            cout << "www" << endl;
             result->append(Nodo<E> (vecinos->getElement()));
+        }
         return result;
     }
 

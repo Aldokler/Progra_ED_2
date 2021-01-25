@@ -41,7 +41,7 @@ class ListaAdyacente{
         ArrayList<KVPair<Nodo<E>, Nodo<E> > > * shuffle(ArrayList<KVPair<Nodo<E>, Nodo<E> > > * lista){
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * nuevo = new ArrayList<KVPair<Nodo<E>, Nodo<E> > >();
             while (lista->getSize() != 0){
-                int pos = rand() % lista->getSize();
+                int pos = rand() % lista->getSize()-1;
                 lista->goToPos(pos);
                 nuevo->append(lista->remove());
             }
@@ -77,6 +77,38 @@ class ListaAdyacente{
             for (int x = 0; x < size; x++){
                 Nodo<E> escrofo(x);
                 escrofulas->append(escrofo);
+            }
+            escrofulas->goToStart();
+            for(int i=0;i<size;i++){
+                if(i-lado>=0){
+                        cout << i << endl;
+                    escrofulas->goToPos(i-lado);
+                    Nodo<E> escrofo = (escrofulas->getElement());
+                    escrofulas->goToPos(i);
+                    escrofulas->getElement().addVecino(escrofo.getElement());
+                }
+                if(i-1>=0 && (i-1)/lado==i/lado){
+                        cout << i << endl;
+                    escrofulas->goToPos(i-1);
+                    Nodo<E> escrofo = (escrofulas->getElement());
+                    escrofulas->goToPos(i);
+                    escrofulas->getElement().addVecino(escrofo.getElement());
+                }
+                if(i+1<size && (i+1)/lado==i/lado){
+                        cout << i << endl;
+                    escrofulas->goToPos(i+1);
+                    Nodo<E> escrofo = (escrofulas->getElement());
+                    escrofulas->goToPos(i);
+                    escrofulas->getElement().addVecino(escrofo.getElement());
+                }
+                if(i+lado<size){
+                        cout << i << endl;
+                    escrofulas->goToPos(i+lado);
+                    Nodo<E> escrofo = (escrofulas->getElement());
+                    escrofulas->goToPos(i);
+                    escrofulas->getElement().addVecino(escrofo.getElement());
+                }
+                escrofulas->next();
             }
         }
         ~ListaAdyacente(){
@@ -114,6 +146,34 @@ class ListaAdyacente{
             for (int x = 0; x < size; x++){
                 Nodo<E> escrofo(x);
                 escrofulas->append(escrofo);
+            }
+            escrofulas->goToStart();
+            for(int i=0;i<size;i++){
+                if(i-lado>=0){
+                    escrofulas->goToPos(i-lado);
+                    Nodo<E> escrofo = (escrofulas->getElement());
+                    escrofulas->goToPos(i);
+                    escrofulas->getElement().addVecino(escrofo.getElement());
+                }
+                if(i-1>=0 && (i-1)/lado==i/lado){
+                    escrofulas->goToPos(i-1);
+                    Nodo<E> escrofo = (escrofulas->getElement());
+                    escrofulas->goToPos(i);
+                    escrofulas->getElement().addVecino(escrofo.getElement());
+                }
+                if(i+1<size && (i+1)/lado==i/lado){
+                    escrofulas->goToPos(i+1);
+                    Nodo<E> escrofo = (escrofulas->getElement());
+                    escrofulas->goToPos(i);
+                    escrofulas->getElement().addVecino(escrofo.getElement());
+                }
+                if(i+lado<size){
+                    escrofulas->goToPos(i+lado);
+                    Nodo<E> escrofo = (escrofulas->getElement());
+                    escrofulas->goToPos(i);
+                    escrofulas->getElement().addVecino(escrofo.getElement());
+                }
+                escrofulas->next();
             }
         }
 
@@ -164,7 +224,7 @@ class ListaAdyacente{
         vecinos se utiliza para crear un laberinto logico en el que cada uno de los nodos estara unido por
         sus cuatro vecinos nodo derecho, izquierdo, superior e inferior de existir estos.
         */
-        void vecinos(){
+        void vecinosss(){
             for(int i=0;i<size;i++){
 
                 nodos[i].clear();
@@ -222,6 +282,8 @@ class ListaAdyacente{
             for (int x = 0; x < escrofulas->getSize(); x++){
                 conjuntos[x].append(escrofulas->getElement());
                 ArrayList<Nodo<E> > * vecinos = escrofulas->getElement().getVecinos();
+                    if (vecinos->isEmpty())
+                        cout << "si" << endl;
                 for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
                     arcos->append(KVPair<Nodo<E>, Nodo<E> >(escrofulas->getElement(), vecinos->getElement()));
                 }
@@ -229,8 +291,8 @@ class ListaAdyacente{
             }
             arcos = shuffle(arcos);
             for (arcos->goToStart(); !arcos->atEnd(); arcos->next()){
-                int posUno = -1;
-                int posDos = -1;
+                int posUno = 0;
+                int posDos = 0;
                 for (int x = 0; x < escrofulas->getSize(); x++){
                     if (conjuntos[x].contains(arcos->getElement().getKey())){
                         posUno = x;
@@ -275,15 +337,17 @@ class ListaAdyacente{
         void prim(){
             ArrayList<Nodo<E> > * resultante = new ArrayList<Nodo<E> >();
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E>, Nodo<E> > >();
-            E cualquiera = rand() % escrofulas->getSize();
+            E cualquiera = rand() % escrofulas->getSize()-1;
             escrofulas->goToPos(cualquiera);
             resultante->append(escrofulas->getElement());
-            ArrayList<Nodo<E> > * vecinos = escrofulas->getElement().getVecinos();
-            for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-                arcos->append(KVPair<Nodo<E>, Nodo<E> >(escrofulas->getElement(), vecinos->getElement()));
+            ArrayList<Nodo<E> > * vecinoz = escrofulas->getElement().getVecinos();
+            for(vecinoz->goToStart(); !vecinoz->atEnd(); vecinoz->next()){
+                    cout << "si" << endl;
+                arcos->append(KVPair<Nodo<E>, Nodo<E> >(escrofulas->getElement(), vecinoz->getElement()));
+                    cout << "no" << endl;
             }
-            while (resultante->getSize() != escrofulas->getSize()){
-                cualquiera = rand() % arcos->getSize();
+            while (!arcos->isEmpty()){
+                cualquiera = rand() % arcos->getSize()-1;
                 arcos->goToPos(cualquiera);
                 if (resultante->contains(arcos->getElement().getValue())){
                     arcos->remove();
@@ -294,11 +358,11 @@ class ListaAdyacente{
                     escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getValue()));
                     escrofulas->getElement().addConexion(arcos->getElement().getKey().getElement());
                     resultante->append(arcos->getElement().getValue());
-                    vecinos->clear();
-                    vecinos = arcos->getElement().getValue().getVecinos();
-                    for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next())
-                        if (vecinos->getElement() != arcos->getElement().getKey().getElement())
-                            arcos->append(KVPair<Nodo<E>, Nodo<E> >(arcos->getElement().getValue(), vecinos->getElement()));
+                    vecinoz->clear();
+                    vecinoz = arcos->getElement().getValue().getVecinos();
+                    for (vecinoz->goToStart(); !vecinoz->atEnd(); vecinoz->next())
+                        if (vecinoz->getElement() != arcos->getElement().getKey().getElement())
+                            arcos->append(KVPair<Nodo<E>, Nodo<E> >(arcos->getElement().getValue(), vecinoz->getElement()));
                 }
                 if (finished())
                     return;
@@ -574,6 +638,7 @@ class ListaAdyacente{
         void convert(){
             escrofulas->goToStart();
             for (int x = 0; x < size; x++){
+                    cout << x << endl;
                 for (escrofulas->getElement().getConexiones()->goToStart();
                     !escrofulas->getElement().getConexiones()->atEnd();
                      escrofulas->getElement().getConexiones()->next()){
@@ -582,7 +647,6 @@ class ListaAdyacente{
                 escrofulas->next();
             }
         }
-
 
 };
 

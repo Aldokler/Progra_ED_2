@@ -148,6 +148,10 @@ public:
             append(L->getElement());
         }
     }
+
+    bool isEmpty(){
+        return size==0;
+    }
 };
 
 #endif // ARRAYLIST_H

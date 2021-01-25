@@ -15,9 +15,9 @@ int game(int num){
     for(int i=5;(i=i);i++){
         int stime=time(0);
         L.setSize(i*i);
-        L.vecinos();
 
         if(num==0){
+          L.vecinosss();
           L.deepSearch();
           L.addExtra(i);
         }
