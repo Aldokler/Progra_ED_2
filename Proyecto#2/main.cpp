@@ -17,7 +17,7 @@ int game(int num){
         L.setSize(i*i);
 
         if(num==0){
-          L.vecinosss();
+          L.vecinos();
           L.deepSearch();
           L.addExtra(i);
         }

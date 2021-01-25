@@ -5,7 +5,7 @@ template <typename E>
 class List {
 private:
     void operator =(const List& obj) {}
-    List(const List& obj) {}
+    //List(const List& obj) {}
 
 public:
     List() {}

@@ -87,11 +87,15 @@ public:
     }
 
     ArrayList<Nodo<E> > * getVecinos(){
+        cout << "getVecinos" << endl;
         ArrayList<Nodo<E> > * result = new ArrayList<Nodo<E> >();
+        cout << "result" << endl;
         for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-            cout << "www" << endl;
+                cout << vecinos->getElement() << endl;
             result->append(Nodo<E> (vecinos->getElement()));
+                cout << vecinos->getElement() << "x2" << endl;
         }
+        cout << "finish" << endl;
         return result;
     }
 

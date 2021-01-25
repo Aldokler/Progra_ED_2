@@ -41,16 +41,16 @@ class ListaAdyacente{
         ArrayList<KVPair<Nodo<E>, Nodo<E> > > * shuffle(ArrayList<KVPair<Nodo<E>, Nodo<E> > > * lista){
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * nuevo = new ArrayList<KVPair<Nodo<E>, Nodo<E> > >();
             while (lista->getSize() != 0){
-                int pos = rand() % lista->getSize()-1;
+                int pos = rand() % lista->getSize();
                 lista->goToPos(pos);
                 nuevo->append(lista->remove());
             }
             return nuevo;
         }
 
-        int getOcurrence(ArrayList<Nodo<E> > * lista, Nodo<E> element){
-            for (int x = 0; x < lista->getSize(); x++)
-                if (lista->contains(element))
+        int getOcurrence(ArrayList<Nodo<E> > lista, Nodo<E> element){
+            for (int x = 0; x < lista.getSize(); x++)
+                if (lista.contains(element))
                     return x;
             return -1;
         }
@@ -73,7 +73,7 @@ class ListaAdyacente{
             espacio = (lado+lado-1)*(tam/2);
             midx = (1360 - espacio)/2;
             midy = (760 - espacio)/2;
-            escrofulas = new ArrayList<Nodo<E> >();
+            escrofulas = new ArrayList<Nodo<E> >(size);
             for (int x = 0; x < size; x++){
                 Nodo<E> escrofo(x);
                 escrofulas->append(escrofo);
@@ -81,35 +81,33 @@ class ListaAdyacente{
             escrofulas->goToStart();
             for(int i=0;i<size;i++){
                 if(i-lado>=0){
-                        cout << i << endl;
                     escrofulas->goToPos(i-lado);
                     Nodo<E> escrofo = (escrofulas->getElement());
                     escrofulas->goToPos(i);
                     escrofulas->getElement().addVecino(escrofo.getElement());
                 }
                 if(i-1>=0 && (i-1)/lado==i/lado){
-                        cout << i << endl;
                     escrofulas->goToPos(i-1);
                     Nodo<E> escrofo = (escrofulas->getElement());
                     escrofulas->goToPos(i);
                     escrofulas->getElement().addVecino(escrofo.getElement());
                 }
                 if(i+1<size && (i+1)/lado==i/lado){
-                        cout << i << endl;
                     escrofulas->goToPos(i+1);
                     Nodo<E> escrofo = (escrofulas->getElement());
                     escrofulas->goToPos(i);
                     escrofulas->getElement().addVecino(escrofo.getElement());
                 }
                 if(i+lado<size){
-                        cout << i << endl;
                     escrofulas->goToPos(i+lado);
                     Nodo<E> escrofo = (escrofulas->getElement());
                     escrofulas->goToPos(i);
                     escrofulas->getElement().addVecino(escrofo.getElement());
                 }
+                        cout << i << endl;
                 escrofulas->next();
             }
+            cout << "***** se cayó" << endl;
         }
         ~ListaAdyacente(){
             for(int i=0;i<size;i++){
@@ -175,6 +173,7 @@ class ListaAdyacente{
                 }
                 escrofulas->next();
             }
+            cout << "***** se cayó" << endl;
         }
 
 
@@ -224,7 +223,7 @@ class ListaAdyacente{
         vecinos se utiliza para crear un laberinto logico en el que cada uno de los nodos estara unido por
         sus cuatro vecinos nodo derecho, izquierdo, superior e inferior de existir estos.
         */
-        void vecinosss(){
+        void vecinos(){
             for(int i=0;i<size;i++){
 
                 nodos[i].clear();
@@ -277,20 +276,45 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de kruskal
         */
         void kruskal(){
+            cout << "kruskal" << endl;
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E> , Nodo<E> > >();
+            cout << "kruskal" << endl;
             ArrayList<Nodo<E> > * conjuntos = new ArrayList<Nodo<E> > [escrofulas->getSize()];
+            cout << "kruskal" << endl;
+            escrofulas->goToStart();
+            cout << "kruskal" << endl;
             for (int x = 0; x < escrofulas->getSize(); x++){
+                cout << x << "a" << endl;
                 conjuntos[x].append(escrofulas->getElement());
-                ArrayList<Nodo<E> > * vecinos = escrofulas->getElement().getVecinos();
-                    if (vecinos->isEmpty())
-                        cout << "si" << endl;
+                cout << x << "b" << endl;
+                ArrayList<Nodo<E> > * vecinos;
+                cout << x << "ch" << endl;
+                Nodo<E> jota = escrofulas->getElement();
+                cout << "jota" << endl;
+                vecinos = jota.getVecinos();
+                cout << x << "O" << endl;
                 for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-                    arcos->append(KVPair<Nodo<E>, Nodo<E> >(escrofulas->getElement(), vecinos->getElement()));
+                        cout << x << endl;
+                        Nodo<E> uno = escrofulas->getElement();
+                        cout << "escrufula" << endl;
+                        Nodo<E> dos = vecinos->getElement();
+                        cout << "vecino" << endl;
+                        KVPair<Nodo<E>, Nodo<E> > par;
+                        cout << "key" << endl;
+                        par.setKey(uno);
+                        cout << "value" << endl;
+                        par.setValue(dos);
+                        cout << "KVPair" << endl;
+                    arcos->append(par);
+                        cout << "append" << endl;
                 }
                 escrofulas->next();
             }
-            arcos = shuffle(arcos);
+            cout << "kirby" << endl;
+            //arcos = shuffle(arcos);
+            cout << "no" << endl;
             for (arcos->goToStart(); !arcos->atEnd(); arcos->next()){
+                cout << "#$%#!" << endl;
                 int posUno = 0;
                 int posDos = 0;
                 for (int x = 0; x < escrofulas->getSize(); x++){
@@ -305,9 +329,13 @@ class ListaAdyacente{
                         break;
                     }
                 }
-                conjuntos[posUno].goToPos(getOcurrence(conjuntos, arcos->getElement().getKey()));
+            cout << "out" << endl;
+            cout << posDos << endl;
+                conjuntos[posUno].goToPos(getOcurrence(conjuntos[posUno], arcos->getElement().getKey()));
                 ArrayList<Nodo<E> > * one = &conjuntos[posUno];
-                conjuntos[posDos].goToPos(getOcurrence(conjuntos, arcos->getElement().getValue()));
+                cout << "of" << endl;
+                conjuntos[posDos].goToPos(getOcurrence(conjuntos[posDos], arcos->getElement().getValue()));
+                cout << "bonds" << endl;
                 ArrayList<Nodo<E> > * two = &conjuntos[posDos];
                 if (!one->contains(arcos->getElement().getValue())){
                     escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getKey()));
@@ -337,17 +365,15 @@ class ListaAdyacente{
         void prim(){
             ArrayList<Nodo<E> > * resultante = new ArrayList<Nodo<E> >();
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E>, Nodo<E> > >();
-            E cualquiera = rand() % escrofulas->getSize()-1;
+            E cualquiera = rand() % escrofulas->getSize();
             escrofulas->goToPos(cualquiera);
             resultante->append(escrofulas->getElement());
             ArrayList<Nodo<E> > * vecinoz = escrofulas->getElement().getVecinos();
             for(vecinoz->goToStart(); !vecinoz->atEnd(); vecinoz->next()){
-                    cout << "si" << endl;
                 arcos->append(KVPair<Nodo<E>, Nodo<E> >(escrofulas->getElement(), vecinoz->getElement()));
-                    cout << "no" << endl;
             }
             while (!arcos->isEmpty()){
-                cualquiera = rand() % arcos->getSize()-1;
+                cualquiera = rand() % arcos->getSize();
                 arcos->goToPos(cualquiera);
                 if (resultante->contains(arcos->getElement().getValue())){
                     arcos->remove();
