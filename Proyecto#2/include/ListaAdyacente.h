@@ -219,11 +219,15 @@ class ListaAdyacente{
         void kruskal(){
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E> , Nodo<E> > >();
             ArrayList<Nodo<E> > * conjuntos = new ArrayList<Nodo<E> > [escrofulas->getSize()];
+
             for (int x = 0; x < escrofulas->getSize(); x++){
                 conjuntos[x].append(escrofulas->getElement());
-                ArrayList<Nodo<E> > * vecinos = escrofulas->getElement().getVecinos();
+
+                ArrayList< Nodo<E> > * vecinos = escrofulas->getElement().getVecinos();
+
                 for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
                     arcos->append(KVPair<Nodo<E>, Nodo<E> >(escrofulas->getElement(), vecinos->getElement()));
+
                 }
                 escrofulas->next();
             }
