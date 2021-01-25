@@ -23,9 +23,11 @@ int game(int num){
         }
         if(num==1){
           L.kruskal();
+          L.convert();
         }
         if(num==2){
           L.prim();
+          L.convert();
         }
 
 

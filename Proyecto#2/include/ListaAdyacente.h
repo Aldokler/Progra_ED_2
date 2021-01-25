@@ -48,10 +48,6 @@ class ListaAdyacente{
             return nuevo;
         }
 
-        void clearEscrofulas(){
-            escrofulas->clear();
-        }
-
         int getOcurrence(ArrayList<Nodo<E> > * lista, Nodo<E> element){
             for (int x = 0; x < lista->getSize(); x++)
                 if (lista->contains(element))
@@ -70,6 +66,11 @@ class ListaAdyacente{
             espacio = (lado+lado-1)*(tam/2);
             midx = (1360 - espacio)/2;
             midy = (760 - espacio)/2;
+            escrofulas = new ArrayList<Nodo<E> >();
+            for (int x = 0; x < size; x++){
+                Nodo<E> escrofo(x);
+                escrofulas->append(escrofo);
+            }
         }
         ~ListaAdyacente(){
             for(int i=0;i<size;i++){
@@ -101,6 +102,12 @@ class ListaAdyacente{
             camino = new int[size];
             distancias = new int[size];
             visitados = new bool[size];
+
+            escrofulas->clear();
+            for (int x = 0; x < size; x++){
+                Nodo<E> escrofo(x);
+                escrofulas->append(escrofo);
+            }
         }
 
 
@@ -203,7 +210,6 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de kruskal
         */
         void kruskal(){
-            clearEscrofulas();
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E> , Nodo<E> > >();
             ArrayList<Nodo<E> > * conjuntos = new ArrayList<Nodo<E> > [escrofulas->getSize()];
             for (int x = 0; x < escrofulas->getSize(); x++){
@@ -236,9 +242,9 @@ class ListaAdyacente{
                 ArrayList<Nodo<E> > * two = &conjuntos[posDos];
                 if (!one->contains(arcos->getElement().getValue())){
                     escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getKey()));
-                    escrofulas->getElement().addConexion(arcos->getElement().getValue());
+                    escrofulas->getElement().addConexion(arcos->getElement().getValue().getElement());
                     escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getValue()));
-                    escrofulas->getElement().addConexion(arcos->getElement().getKey());
+                    escrofulas->getElement().addConexion(arcos->getElement().getKey().getElement());
                     if (one->getSize() >= two->getSize()){
                         two->goToStart();
                         while (two->getSize() != 0)
@@ -258,7 +264,6 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de prim
         */
         void prim(){
-            clearEscrofulas();
             ArrayList<Nodo<E> > * resultante = new ArrayList<Nodo<E> >();
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E>, Nodo<E> > >();
             E cualquiera = rand() % escrofulas->getSize();
@@ -276,9 +281,9 @@ class ListaAdyacente{
                 }
                 else{
                     escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getKey()));
-                    escrofulas->getElement().addConexion(arcos->getElement().getValue());
+                    escrofulas->getElement().addConexion(arcos->getElement().getValue().getElement());
                     escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getValue()));
-                    escrofulas->getElement().addConexion(arcos->getElement().getKey());
+                    escrofulas->getElement().addConexion(arcos->getElement().getKey().getElement());
                     resultante->append(arcos->getElement().getValue());
                     vecinos->clear();
                     vecinos = arcos->getElement().getValue().getVecinos();
@@ -555,7 +560,17 @@ class ListaAdyacente{
             }
         }
 
-
+        void convert(){
+            escrofulas->goToStart();
+            for (int x = 0; x < size; x++){
+                for (escrofulas->getElement().getConexiones()->goToStart();
+                    !escrofulas->getElement().getConexiones()->atEnd();
+                     escrofulas->getElement().getConexiones()->next()){
+                    nodos[x].append(escrofulas->getElement().getConexiones()->getElement().getElement());
+                }
+                escrofulas->next();
+            }
+        }
 
 
 };

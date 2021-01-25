@@ -6,18 +6,18 @@ template <typename E>
 class Nodo {
 private:
     E element;
-    ArrayList<Nodo<E> > * conexiones;
-    ArrayList<Nodo<E> > * vecinos;
+    ArrayList<E> * conexiones;
+    ArrayList<E> * vecinos;
 
 public:
     Nodo(E element){
         this->element = element;
-        conexiones = new ArrayList<Nodo<E> >();
-        vecinos = new ArrayList<Nodo<E> >();
+        conexiones = new ArrayList<E>();
+        vecinos = new ArrayList<E>();
     }
     Nodo(){
-        conexiones = new ArrayList<Nodo<E> >();
-        vecinos = new ArrayList<Nodo<E> >();
+        conexiones = new ArrayList<E>();
+        vecinos = new ArrayList<E>();
     }
     void operator= (const Nodo &other) {
         element = other.element;
@@ -50,32 +50,37 @@ public:
         return element;
     }
 
-    ArrayList<Nodo<E> > getConexiones(){
-        return conexiones;
+    ArrayList<Nodo<E> > * getConexiones(){
+        ArrayList<Nodo<E> > * result = new ArrayList<Nodo<E> >();
+        for (conexiones->goToStart(); !conexiones->atEnd(); conexiones->next()){
+            Nodo<E> escrofo(vecinos->getElement());
+            result->append(escrofo);
+        }
+        return result;
     }
 
-    bool isVecino(Nodo<E> vecino){
+    bool isVecino(E vecino){
         return vecinos->contains(vecino);
     }
 
-    bool isLinked(Nodo<E> nodito){
+    bool isLinked(E nodito){
         return conexiones->contains(nodito) && vecinos->contains(nodito);
     }
 
-    void addVecino(Nodo<E> vecino){
+    void addVecino(E vecino){
         vecinos->append(vecino);
     }
 
-    void removeVecino(Nodo<E> vecino){
+    void removeVecino(E vecino){
         vecinos->goToPos(vecinos->indexOf(vecino));
         vecinos->remove();
     }
 
-    void addConexion(Nodo<E> elemento){
+    void addConexion(E elemento){
         conexiones->append(elemento);
     }
 
-    void removeConexion(Nodo<E> elemento){
+    void removeConexion(E elemento){
         conexiones->remove(elemento);
     }
 
@@ -84,7 +89,12 @@ public:
     }
 
     ArrayList<Nodo<E> > * getVecinos(){
-        return vecinos;
+        ArrayList<Nodo<E> > * result = new ArrayList<Nodo<E> >();
+        for (vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
+            Nodo<E> escrofo(vecinos->getElement());
+            result->append(escrofo);
+        }
+        return result;
     }
 
 };
