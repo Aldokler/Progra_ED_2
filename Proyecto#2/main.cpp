@@ -10,9 +10,9 @@
 using namespace std;
 
 int game(int num){
-    ListaAdyacente<int> L (5);
-    int timer = 15;
-    for(int i=5;(i=i);i++){
+    ListaAdyacente<int> L (8);
+    int timer = 30;
+    for(int i=8;(i=i);i++){
         int stime=time(0);
         L.setSize(i*i);
 
@@ -53,14 +53,12 @@ int game(int num){
             int pos = getch();
             if(time(0)-stime>=timer){
                 cleardevice();
-                cout<<"Perdiste por tiempo!"<<endl;
                 return 0;
             }
 
 
             if(pos==27){// esc para salir
                 cleardevice();
-                cout<<endl<<"Has salido del programa."<<endl;
                 return 0;
             }
 
@@ -90,12 +88,12 @@ int game(int num){
                 L.setPlayerPos(pos);
                 if(time(0)-stime>=timer){
                 cleardevice();
-                cout<<"Perdiste por tiempo!"<<endl;
                 return 0;
                 }
             }
         }
         cleardevice();
+
     }
     return 0;
 }
@@ -139,12 +137,12 @@ void subMenu(){
             }
             else if (choice%4 == 1){
                 cleardevice();
-                game(1);
+                game(0);
                 return;
             }
             else if (choice%4 == 2){
                 cleardevice();
-                game(2);
+                game(0);
                 return;
             }
             else{
@@ -189,7 +187,6 @@ void menu(){
     }
 }
   //deber�a recibir el main
-  //int maze size, tiempo on/off
 int main(){
     initwindow (1920,1080);
     settextstyle(8, 0, 3);

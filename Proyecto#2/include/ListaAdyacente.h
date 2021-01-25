@@ -107,7 +107,6 @@ class ListaAdyacente{
                         cout << i << endl;
                 escrofulas->next();
             }*/
-            cout << "***** se cayó" << endl;
         }
         ~ListaAdyacente(){
             for(int i=0;i<size;i++){
@@ -173,7 +172,6 @@ class ListaAdyacente{
                 }
                 escrofulas->next();
             }*/
-            cout << "no ***** se cayo" << endl;
         }
 
 
@@ -276,45 +274,43 @@ class ListaAdyacente{
         Esta funcion se encarga de crear el laberinto con base al algoritmo de kruskal
         */
         void kruskal(){
-            cout << "kruskal" << endl;
+
             ArrayList<KVPair<Nodo<E>, Nodo<E> > > * arcos = new ArrayList<KVPair<Nodo<E> , Nodo<E> > >();
-            cout << "kruskal" << endl;
+
             ArrayList<Nodo<E> > * conjuntos = new ArrayList<Nodo<E> > [escrofulas->getSize()];
-            cout << "kruskal" << endl;
+
             escrofulas->goToStart();
-            cout << "kruskal" << endl;
+
             for (int x = 0; x < escrofulas->getSize(); x++){
-                cout << x << "a" << endl;
+
                 conjuntos[x].append(escrofulas->getElement());
-                cout << x << "b" << endl;
+
                 ArrayList<Nodo<E> > * vecinos;
-                cout << x << "ch" << endl;
+
                 Nodo<E> jota = escrofulas->getElement();
-                cout << "jota" << endl;
+
                 vecinos = jota.getVecinos();
-                cout << x << "O" << endl;
+
                 for(vecinos->goToStart(); !vecinos->atEnd(); vecinos->next()){
-                        cout << x << endl;
+
                         Nodo<E> uno = escrofulas->getElement();
-                        cout << "escrufula" << endl;
+
                         Nodo<E> dos = vecinos->getElement();
-                        cout << "vecino" << endl;
+
                         KVPair<Nodo<E>, Nodo<E> > par;
-                        cout << "key" << endl;
-                        par.setKey(uno);
-                        cout << "value" << endl;
+
+                        par.setKey(uno);// error a veces..
+
                         par.setValue(dos);
-                        cout << "KVPair" << endl;
+
                     arcos->append(par);
-                        cout << "append" << endl;
+
                 }
                 escrofulas->next();
             }
-            cout << "kirby" << endl;
             //arcos = shuffle(arcos);
-            cout << "no" << endl;
+
             for (arcos->goToStart(); !arcos->atEnd(); arcos->next()){
-                cout << "#$%#!" << endl;
                 int posUno = 0;
                 int posDos = 0;
                 for (int x = 0; x < escrofulas->getSize(); x++){
@@ -329,13 +325,9 @@ class ListaAdyacente{
                         break;
                     }
                 }
-            cout << "out" << endl;
-            cout << posDos << endl;
                 conjuntos[posUno].goToPos(getOcurrence(conjuntos[posUno], arcos->getElement().getKey()));
                 ArrayList<Nodo<E> > * one = &conjuntos[posUno];
-                cout << "of" << endl;
                 conjuntos[posDos].goToPos(getOcurrence(conjuntos[posDos], arcos->getElement().getValue()));
-                cout << "bonds" << endl;
                 ArrayList<Nodo<E> > * two = &conjuntos[posDos];
                 if (!one->contains(arcos->getElement().getValue())){
                     escrofulas->goToPos(escrofulas->indexOf(arcos->getElement().getKey()));
