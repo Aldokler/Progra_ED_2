@@ -78,7 +78,7 @@ class ListaAdyacente{
                 Nodo<E> escrofo(x);
                 escrofulas->append(escrofo);
             }
-            escrofulas->goToStart();
+            /*escrofulas->goToStart();
             for(int i=0;i<size;i++){
                 if(i-lado>=0){
                     escrofulas->goToPos(i-lado);
@@ -106,7 +106,7 @@ class ListaAdyacente{
                 }
                         cout << i << endl;
                 escrofulas->next();
-            }
+            }*/
             cout << "***** se cayó" << endl;
         }
         ~ListaAdyacente(){
@@ -145,7 +145,7 @@ class ListaAdyacente{
                 Nodo<E> escrofo(x);
                 escrofulas->append(escrofo);
             }
-            escrofulas->goToStart();
+            /*escrofulas->goToStart();
             for(int i=0;i<size;i++){
                 if(i-lado>=0){
                     escrofulas->goToPos(i-lado);
@@ -172,8 +172,8 @@ class ListaAdyacente{
                     escrofulas->getElement().addVecino(escrofo.getElement());
                 }
                 escrofulas->next();
-            }
-            cout << "***** se cayó" << endl;
+            }*/
+            cout << "no ***** se cayo" << endl;
         }
 
 
@@ -424,6 +424,7 @@ class ListaAdyacente{
         del laberinto de manera alearotia.
         */
         void initialize(){
+            srand(time(0));
             objects.clear();
             fin = rand()%size;
             jugador = rand()%size;
